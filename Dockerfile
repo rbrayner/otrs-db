@@ -1,18 +1,17 @@
-FROM mariadb:10.3
+FROM mariadb:10.4
+MAINTAINER "Rodrigo Brayner" <rbrayner@gmail.com>
+ENV MYSQL_ROOT_PASSWORD changeme
 
-#RUN sed -i 's/^\(max_allowed_packet\s*=\s*\).*$/\120M/' /etc/mysql/my.cnf
+#mariadb image runs as mysql user (uid 27) but we need to do some configuration
+#changes so we need to temporarly switch to root
+USER root
 
-#RUN sed -i 's/^\(query_cache_size\s*=\s*\).*$/\132M/' /etc/mysql/my.cnf
-
-#RUN sed -i 's/^\(innodb_log_file_size\s*=\s*\).*$/\1256M/' /etc/mysql/my.cnf
-
-RUN echo "[mysqld]" > /etc/mysql/conf.d/otrs.cnf
-RUN echo "max_allowed_packet = 120M" >> /etc/mysql/conf.d/otrs.cnf
-RUN echo "query_cache_size = 132M" >> /etc/mysql/conf.d/otrs.cnf
-RUN echo "innodb_log_file_size = 1256M" >> /etc/mysql/conf.d/otrs.cnf
-
-RUN echo "character-set-server=utf8" >> /etc/mysql/conf.d/otrs.cnf
-
-RUN echo "collation-server=utf8_general_ci" >> /etc/mysql/conf.d/otrs.cnf
-
-EXPOSE 3306
+#Change db configuration as required by official install docs and Enable utf8 support
+RUN sed -i.bk -r '/^\[mysqld\]$/a max_allowed_packet=64M' /etc/mysql/my.cnf && \
+    sed -i.bk -r '/^\[mysqld\]$/a query_cache_size=32M' /etc/mysql/my.cnf && \
+    sed -i.bk -r '/^\[mysqld\]$/a innodb_log_file_size=256M' /etc/mysql/my.cnf && \
+    sed -i.bk -r '/^\[mysqld\]$/a skip-character-set-client-handshake' /etc/mysql/my.cnf && \
+    sed -i.bk -r "/^\[mysqld\]$/a init_connect='SET collation_connection = utf8_unicode_ci'" /etc/mysql/my.cnf && \
+    sed -i.bk -r '/^\[mysqld\]$/a collation-server = utf8_general_ci' /etc/mysql/my.cnf && \
+    sed -i.bk -r "/^\[mysqld\]$/a init-connect=\'SET NAMES utf8\'" /etc/mysql/my.cnf && \
+    sed -i.bk -r '/^\[mysqld\]$/a character-set-server = utf8' /etc/mysql/my.cnf
