@@ -1,4 +1,4 @@
-FROM mariadb:10.4
+FROM mariadb:10.4.6
 MAINTAINER "Rodrigo Brayner" <rbrayner@gmail.com>
 ENV MYSQL_ROOT_PASSWORD changeme
 
@@ -7,11 +7,14 @@ ENV MYSQL_ROOT_PASSWORD changeme
 USER root
 
 #Change db configuration as required by official install docs and Enable utf8 support
-RUN sed -i.bk -r '/^\[mysqld\]$/a max_allowed_packet=64M' /etc/mysql/my.cnf && \
-    sed -i.bk -r '/^\[mysqld\]$/a query_cache_size=32M' /etc/mysql/my.cnf && \
-    sed -i.bk -r '/^\[mysqld\]$/a innodb_log_file_size=256M' /etc/mysql/my.cnf && \
+RUN sed -i.bk -r '/^\[mysqld\]$/a max_allowed_packet=128M' /etc/mysql/my.cnf && \
+    sed -i.bk -r '/^\[mysqld\]$/a query_cache_size=64M' /etc/mysql/my.cnf && \
+    sed -i.bk -r '/^\[mysqld\]$/a innodb_log_file_size=512M' /etc/mysql/my.cnf && \
+    sed -i.bk -r '/^\[mysqld\]$/a net_read_timeout=28800' /etc/mysql/my.cnf && \
+    sed -i.bk -r '/^\[mysqld\]$/a net_write_timeout=28800' /etc/mysql/my.cnf && \
     sed -i.bk -r '/^\[mysqld\]$/a skip-character-set-client-handshake' /etc/mysql/my.cnf && \
     sed -i.bk -r "/^\[mysqld\]$/a init_connect='SET collation_connection = utf8_unicode_ci'" /etc/mysql/my.cnf && \
     sed -i.bk -r '/^\[mysqld\]$/a collation-server = utf8_general_ci' /etc/mysql/my.cnf && \
     sed -i.bk -r "/^\[mysqld\]$/a init-connect=\'SET NAMES utf8\'" /etc/mysql/my.cnf && \
     sed -i.bk -r '/^\[mysqld\]$/a character-set-server = utf8' /etc/mysql/my.cnf
+
