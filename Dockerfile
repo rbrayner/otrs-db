@@ -12,6 +12,8 @@ RUN sed -i.bk -r '/^\[mysqld\]$/a max_allowed_packet=128M' /etc/mysql/my.cnf && 
     sed -i.bk -r '/^\[mysqld\]$/a innodb_log_file_size=512M' /etc/mysql/my.cnf && \
     sed -i.bk -r '/^\[mysqld\]$/a net_read_timeout=28800' /etc/mysql/my.cnf && \
     sed -i.bk -r '/^\[mysqld\]$/a net_write_timeout=28800' /etc/mysql/my.cnf && \
+    sed -i.bk -r '/^\[mysqld\]$/a interactive_timeout=28800' /etc/mysql/my.cnf && \
+    sed -i.bk -r '/^\[mysqld\]$/a wait_timeout=28800' /etc/mysql/my.cnf && \
     sed -i.bk -r '/^\[mysqld\]$/a skip-character-set-client-handshake' /etc/mysql/my.cnf && \
     sed -i.bk -r "/^\[mysqld\]$/a init_connect='SET collation_connection = utf8_unicode_ci'" /etc/mysql/my.cnf && \
     sed -i.bk -r '/^\[mysqld\]$/a collation-server = utf8_general_ci' /etc/mysql/my.cnf && \
