@@ -6,7 +6,7 @@ ENV MYSQL_ROOT_PASSWORD changeme
 #changes so we need to temporarly switch to root
 USER root
 
-RUN sed -i '/max_allowed_packet/d' /etc/mysql/my.cnf
+#RUN sed -i '/max_allowed_packet/d' /etc/mysql/my.cnf
 
 #Change db configuration as required by official install docs and Enable utf8 support
 RUN sed -i.bk -r '/^\[mysqld\]$/a max_allowed_packet=2048M' /etc/mysql/my.cnf && \
