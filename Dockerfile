@@ -9,8 +9,8 @@ USER root
 RUN sed -i '/max_allowed_packet/d' /etc/mysql/my.cnf
 
 #Change db configuration as required by official install docs and Enable utf8 support
-RUN sed -i.bk -r '/^\[mysqld\]$/a max_allowed_packet=10240M' /etc/mysql/my.cnf && \
-    sed -i.bk -r '/^\[mysqldump\]$/a max_allowed_packet=10240M' /etc/mysql/my.cnf && \
+RUN sed -i.bk -r '/^\[mysqld\]$/a max_allowed_packet=2048M' /etc/mysql/my.cnf && \
+    sed -i.bk -r '/^\[mysqldump\]$/a max_allowed_packet=2048M' /etc/mysql/my.cnf && \
     sed -i.bk -r '/^\[mysqld\]$/a query_cache_size=64M' /etc/mysql/my.cnf && \
     sed -i.bk -r '/^\[mysqld\]$/a innodb_log_file_size=512M' /etc/mysql/my.cnf && \
     sed -i.bk -r '/^\[mysqld\]$/a net_read_timeout=28800' /etc/mysql/my.cnf && \
