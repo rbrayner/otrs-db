@@ -8,6 +8,8 @@ USER root
 
 #RUN sed -i '/max_allowed_packet/d' /etc/mysql/my.cnf
 
+COPY addons.cnf /etc/mysql/conf.d/
+
 #Change db configuration as required by official install docs and Enable utf8 support
 RUN sed -i.bk -r '/^\[mysqld\]$/a max_allowed_packet=2048M' /etc/mysql/my.cnf && \
     sed -i.bk -r '/^\[mysqldump\]$/a max_allowed_packet=2048M' /etc/mysql/my.cnf && \
