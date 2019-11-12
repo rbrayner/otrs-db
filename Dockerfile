@@ -13,7 +13,6 @@ RUN sed -i.bk -r '/^\[mysqld\]$/a max_allowed_packet=2048M' /etc/mysql/my.cnf &&
     sed -i.bk -r '/^\[mysqldump\]$/a max_allowed_packet=2048M' /etc/mysql/my.cnf && \
     sed -i.bk -r '/^\[mysqld\]$/a query_cache_size=64M' /etc/mysql/my.cnf && \
     sed -i.bk -r '/^\[mysqld\]$/a innodb_log_file_size=512M' /etc/mysql/my.cnf && \
-    sed -i.bk -r '/^\[mysqld\]$/a key_buffer_size=3G' /etc/mysql/my.cnf && \
     sed -i.bk -r '/^\[mysqld\]$/a net_read_timeout=28800' /etc/mysql/my.cnf && \
     sed -i.bk -r '/^\[mysqld\]$/a net_write_timeout=28800' /etc/mysql/my.cnf && \
     sed -i.bk -r '/^\[mysqld\]$/a interactive_timeout=28800' /etc/mysql/my.cnf && \
