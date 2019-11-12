@@ -1,4 +1,4 @@
-FROM mariadb:10.4.6
+FROM mariadb:10.4.10
 MAINTAINER "Rodrigo Brayner" <rbrayner@gmail.com>
 ENV MYSQL_ROOT_PASSWORD changeme
 
