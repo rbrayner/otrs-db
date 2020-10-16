@@ -24,7 +24,7 @@ RUN sed -i.bk -r '/^\[mysqld\]$/a max_allowed_packet=2048M' /etc/mysql/my.cnf &&
     sed -i.bk -r '/^\[mysqld\]$/a collation-server = utf8_general_ci' /etc/mysql/my.cnf && \
     sed -i.bk -r "/^\[mysqld\]$/a init-connect=\'SET NAMES utf8\'" /etc/mysql/my.cnf && \
     sed -i.bk -r '/^\[mysqld\]$/a character-set-server = utf8' /etc/mysql/my.cnf && \
-    sed -i.bk -r '/^\[mysqld\]$/a innodb_force_recovery = 2' /etc/mysql/my.cnf
+    sed -i.bk -r '/^\[mysqld\]$/a innodb_force_recovery = 3' /etc/mysql/my.cnf
 
 # #Change db configuration as required by official install docs and Enable utf8 support
 # RUN echo "[mysqld]" >> /etc/mysql/conf.d/otrs.cnf &&\
